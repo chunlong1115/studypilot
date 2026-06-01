@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block title %}学习偏好 - 智学伴 StudyPilot{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body p-4">
+                <h4 class="mb-4" style="color: #4A90D9;">
+                    <i class="bi bi-sliders me-2"></i>学习偏好
+                </h4>
+                <p class="text-muted small mb-4">设置您的学习偏好，AI 将据此调整总结和出题风格。</p>
+
+                <form method="POST">
+                    <div class="mb-3">
+                        <label for="subject" class="form-label">学科 / 专业方向</label>
+                        <select class="form-select" id="subject" name="subject">
+                            <option value="">-- 请选择 --</option>
+                            {% set subjects = ['计算机科学', '数学', '英语', '物理', '化学', '生物', '医学', '法学', '经济学', '管理学', '文学', '历史', '哲学', '其他'] %}
+                            {% for s in subjects %}
+                            <option value="{{ s }}" {% if prefs.subject == s %}selected{% endif %}>{{ s }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="learning_goal" class="form-label">学习目标</label>
+                        <select class="form-select" id="learning_goal" name="learning_goal">
+                            <option value="">-- 请选择 --</option>
+                            {% set goals = ['期末考试复习', '考研备考', '日常学习积累', '技能提升', '兴趣学习', '考证备考', '其他'] %}
+                            {% for g in goals %}
+                            <option value="{{ g }}" {% if prefs.learning_goal == g %}selected{% endif %}>{{ g }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label">难度偏好</label>
+                        <div class="d-flex gap-3">
+                            {% set difficulties = [
+                                ('beginner', '初级', '适合刚接触该学科'),
+                                ('intermediate', '中级', '有一定基础'),
+                                ('advanced', '高级', '深入学习')
+                            ] %}
+                            {% for value, label, desc in difficulties %}
+                            <div class="form-check flex-fill">
+                                <input class="form-check-input" type="radio" name="difficulty_level"
+                                       id="diff_{{ value }}" value="{{ value }}"
+                                       {% if prefs.difficulty_level == value %}checked{% endif %}>
+                                <label class="form-check-label" for="diff_{{ value }}">
+                                    {{ label }}<br>
+                                    <small class="text-muted">{{ desc }}</small>
+                                </label>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="daily_study_minutes" class="form-label">
+                            每日学习时长：<strong id="minutes_display">{{ prefs.daily_study_minutes }}</strong> 分钟
+                        </label>
+                        <input type="range" class="form-range" id="daily_study_minutes" name="daily_study_minutes"
+                               min="10" max="480" step="10" value="{{ prefs.daily_study_minutes }}"
+                               oninput="document.getElementById('minutes_display').textContent = this.value">
+                        <div class="d-flex justify-content-between">
+                            <small class="text-muted">10 分钟</small>
+                            <small class="text-muted">8 小时</small>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="background-color: #4A90D9; border-color: #4A90D9;">
+                        <i class="bi bi-check-lg"></i> 保存偏好
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

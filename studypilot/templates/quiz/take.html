@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block title %}答题 - {{ material.title }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+        <h4 class="mb-3" style="color: #4A90D9;">
+            <i class="bi bi-pencil-square me-2"></i>{{ material.title }} - 练习
+        </h4>
+        <p class="text-muted small mb-4">共 {{ questions|length }} 题</p>
+
+        <form method="POST" action="{{ url_for('quiz.submit_quiz', material_id=material.id) }}">
+            {% for q in questions %}
+            <div class="card border-0 shadow-sm mb-3">
+                <div class="card-body">
+                    <div class="d-flex align-items-start mb-3">
+                        <span class="badge me-2" style="background-color: #4A90D9;">{{ loop.index }}</span>
+                        <span class="badge bg-light text-dark me-2">
+                            {% if q.question_type == 'choice' %}选择题
+                            {% elif q.question_type == 'fill_blank' %}填空题
+                            {% elif q.question_type == 'true_false' %}判断题
+                            {% else %}简答题{% endif %}
+                        </span>
+                        {% if q.difficulty %}
+                        <span class="badge bg-light text-muted">
+                            {% if q.difficulty == 'easy' %}简单
+                            {% elif q.difficulty == 'hard' %}困难
+                            {% else %}中等{% endif %}
+                        </span>
+                        {% endif %}
+                    </div>
+
+                    <p class="mb-3">{{ q.question_text }}</p>
+
+                    {% if q.question_type == 'choice' and q.parsed_options %}
+                    {% for opt in q.parsed_options %}
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="radio" name="answer_{{ q.id }}"
+                               id="q{{ q.id }}_{{ loop.index }}" value="{{ opt[:1] }}">
+                        <label class="form-check-label" for="q{{ q.id }}_{{ loop.index }}">{{ opt }}</label>
+                    </div>
+                    {% endfor %}
+
+                    {% elif q.question_type == 'true_false' %}
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="radio" name="answer_{{ q.id }}"
+                               id="q{{ q.id }}_t" value="正确">
+                        <label class="form-check-label" for="q{{ q.id }}_t">正确</label>
+                    </div>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="radio" name="answer_{{ q.id }}"
+                               id="q{{ q.id }}_f" value="错误">
+                        <label class="form-check-label" for="q{{ q.id }}_f">错误</label>
+                    </div>
+
+                    {% else %}
+                    <input type="text" class="form-control" name="answer_{{ q.id }}"
+                           placeholder="请输入你的答案" autocomplete="off">
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary btn-lg" style="background-color: #4A90D9; border-color: #4A90D9;">
+                    <i class="bi bi-check-lg"></i> 提交答案
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

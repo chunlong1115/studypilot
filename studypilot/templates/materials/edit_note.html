@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}编辑 - {{ material.title }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body p-4">
+                <h4 class="mb-4" style="color: #4A90D9;">
+                    <i class="bi bi-pencil me-2"></i>编辑笔记
+                </h4>
+                <form method="POST">
+                    <div class="mb-3">
+                        <label for="title" class="form-label">标题 <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="title" name="title"
+                               value="{{ material.title }}" required maxlength="256">
+                    </div>
+                    <div class="mb-3">
+                        <label for="content" class="form-label">内容</label>
+                        <textarea class="form-control" id="content" name="content" rows="15"
+                                  placeholder="在这里写下你的笔记...">{{ material.content or '' }}</textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="background-color: #4A90D9; border-color: #4A90D9;">
+                        <i class="bi bi-check-lg"></i> 保存
+                    </button>
+                    <a href="{{ url_for('materials.view_material', material_id=material.id) }}" class="btn btn-outline-secondary ms-2">取消</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

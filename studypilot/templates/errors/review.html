@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block title %}复习模式{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-7 mx-auto">
+        <h4 class="mb-1" style="color: #4A90D9;">
+            <i class="bi bi-arrow-repeat me-2"></i>错题复习
+        </h4>
+        <p class="text-muted small mb-4">共 {{ items|length }} 题待复习 · 逐题完成，自评掌握度</p>
+
+        {% for item in items %}
+        <div class="card border-0 shadow-sm mb-4" id="card_{{ item.id }}">
+            <div class="card-body p-4">
+                <span class="badge mb-3" style="background-color: #4A90D9;">{{ loop.index }} / {{ items|length }}</span>
+
+                <div class="mb-4">
+                    <p class="mb-2"><strong>{{ item.question.question_text }}</strong></p>
+                    {% if item.question.options %}
+                    <div class="small text-muted">
+                        {% set ns = namespace(opts=[]) %}
+                        {% for opt in (item.question.options|string) %}
+                        {% endfor %}
+                        {% set raw = item.question.options|string %}
+                        {% if raw.startswith('[') %}
+                        {% for opt in raw[1:-1].split('",') %}
+                        <small class="d-block">{{ opt.strip('\'"[] ') }}</small>
+                        {% endfor %}
+                        {% else %}
+                        <small>{{ item.question.options }}</small>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="mb-3">
+                    <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#answer_{{ item.id }}">
+                        <i class="bi bi-eye"></i> 显示答案
+                    </button>
+                </div>
+
+                <div class="collapse" id="answer_{{ item.id }}">
+                    <div class="alert alert-success">
+                        <strong>正确答案：</strong>{{ item.question.correct_answer }}
+                        {% if item.question.explanation %}
+                        <br><strong>解析：</strong>{{ item.question.explanation }}
+                        {% endif %}
+                    </div>
+                    {% if item.user_answer %}
+                    <div class="alert alert-danger">
+                        <strong>你上次的答案：</strong>{{ item.user_answer.user_answer }}
+                    </div>
+                    {% endif %}
+
+                    <form action="{{ url_for('errors.submit_review', error_id=item.id) }}" method="POST" class="mt-3">
+                        <input type="hidden" name="rating" id="rating_{{ item.id }}">
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-outline-danger flex-fill" onclick="document.getElementById('rating_{{ item.id }}').value='forgot'">
+                                <i class="bi bi-x-lg"></i> 不会
+                            </button>
+                            <button type="submit" class="btn btn-outline-warning flex-fill" onclick="document.getElementById('rating_{{ item.id }}').value='unsure'">
+                                <i class="bi bi-dash-lg"></i> 不熟
+                            </button>
+                            <button type="submit" class="btn btn-outline-success flex-fill" onclick="document.getElementById('rating_{{ item.id }}').value='mastered'">
+                                <i class="bi bi-check-lg"></i> 已掌握
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+        <div class="text-center">
+            <a href="{{ url_for('errors.notebook') }}" class="btn btn-outline-primary">
+                <i class="bi bi-arrow-left"></i> 返回错题本
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

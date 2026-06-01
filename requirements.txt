@@ -1,0 +1,22 @@
+# Web Framework
+Flask==3.1.*
+Flask-SQLAlchemy==3.1.*
+Flask-Migrate==4.1.*
+Flask-Login==0.6.*
+Flask-Mail==0.10.*
+
+# Database
+SQLAlchemy==2.0.*
+pymysql==1.1.*
+cryptography==44.*
+
+# AI / API
+openai==1.*
+
+# File Processing
+PyMuPDF==1.25.*
+Pillow==11.*
+python-dotenv==1.1.*
+
+# Utilities
+python-dateutil==2.9.*

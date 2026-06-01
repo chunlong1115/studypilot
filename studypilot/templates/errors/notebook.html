@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %}错题本{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h3 style="color: #4A90D9;"><i class="bi bi-journal-x me-2"></i>错题本</h3>
+    <div>
+        <a href="{{ url_for('errors.notebook', resolved=1) }}" class="btn btn-sm btn-outline-secondary me-1">已掌握</a>
+        <a href="{{ url_for('errors.review_mode') }}" class="btn btn-sm btn-primary" style="background-color: #4A90D9; border-color: #4A90D9;">
+            <i class="bi bi-play-circle me-1"></i>开始复习
+        </a>
+    </div>
+</div>
+
+{% if errors %}
+{% for error in errors %}
+<div class="card border-0 shadow-sm mb-2" style="border-left: 4px solid #E74C3C !important;">
+    <div class="card-body py-2 px-3">
+        <div class="d-flex justify-content-between align-items-start">
+            <div class="flex-grow-1 me-3">
+                <small class="text-truncate d-block mb-1">{{ error.question.question_text[:100] }}</small>
+                <small class="text-muted">
+                    复习 {{ error.review_count }} 次 ·
+                    下次复习: {{ error.next_review_at.strftime('%m-%d %H:%M') if error.next_review_at else '-' }}
+                </small>
+            </div>
+            <div class="text-nowrap">
+                {% for i in range(5) %}
+                <i class="bi bi-star-fill{{ ' text-warning' if i < error.mastery_level else ' text-muted' }} small"></i>
+                {% endfor %}
+                {% if not error.is_resolved %}
+                <form action="{{ url_for('errors.resolve_error', error_id=error.id) }}" method="POST" class="d-inline ms-2">
+                    <button type="submit" class="btn btn-sm btn-outline-success" title="标记为已掌握">
+                        <i class="bi bi-check-lg"></i>
+                    </button>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+{% if pagination.pages > 1 %}
+<nav class="mt-3">
+    <ul class="pagination justify-content-center pagination-sm">
+        <li class="page-item {{ 'disabled' if not pagination.has_prev }}">
+            <a class="page-link" href="{{ url_for('errors.notebook', page=pagination.prev_num) if pagination.has_prev else '#' }}">上一页</a>
+        </li>
+        {% for p in pagination.iter_pages() %}
+        {% if p %}<li class="page-item {{ 'active' if p==pagination.page }}"><a class="page-link" href="{{ url_for('errors.notebook', page=p) }}">{{ p }}</a></li>
+        {% else %}<li class="page-item disabled"><span class="page-link">…</span></li>{% endif %}
+        {% endfor %}
+        <li class="page-item {{ 'disabled' if not pagination.has_next }}">
+            <a class="page-link" href="{{ url_for('errors.notebook', page=pagination.next_num) if pagination.has_next else '#' }}">下一页</a>
+        </li>
+    </ul>
+</nav>
+{% endif %}
+
+{% else %}
+<div class="text-center py-5">
+    <i class="bi bi-emoji-smile fs-1" style="color: #27AE60;"></i>
+    <p class="mt-2 text-muted">暂无错题，继续保持！</p>
+</div>
+{% endif %}
+{% endblock %}

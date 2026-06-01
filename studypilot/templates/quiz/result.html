@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}答题结果 - {{ material.title }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+        <!-- 成绩卡片 -->
+        <div class="card border-0 shadow-sm mb-4 text-center">
+            <div class="card-body p-5">
+                <div class="display-1 fw-bold mb-2" style="color: {% if score >= 80 %}#27AE60{% elif score >= 60 %}#F39C12{% else %}#E74C3C{% endif %};">
+                    {{ score }}
+                </div>
+                <h5>得分</h5>
+                <p class="text-muted">{{ correct }} / {{ total }} 题正确</p>
+                <div class="progress mb-3" style="height: 8px;">
+                    <div class="progress-bar {% if score >= 80 %}bg-success{% elif score >= 60 %}bg-warning{% else %}bg-danger{% endif %}"
+                         style="width: {{ score }}%;"></div>
+                </div>
+                <a href="{{ url_for('materials.view_material', material_id=material.id) }}" class="btn btn-outline-primary btn-sm">
+                    <i class="bi bi-arrow-left"></i> 返回资料
+                </a>
+                <a href="{{ url_for('ai.generate_quiz_page', material_id=material.id) }}" class="btn btn-outline-primary btn-sm ms-2">
+                    <i class="bi bi-arrow-repeat"></i> 重新出题
+                </a>
+            </div>
+        </div>
+
+        <!-- 每题详情 -->
+        {% for r in results %}
+        <div class="card border-0 shadow-sm mb-3" style="border-left: 4px solid {% if r.is_correct %}#27AE60{% else %}#E74C3C{% endif %} !important;">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                    <span class="badge" style="background-color: #4A90D9;">第 {{ loop.index }} 题</span>
+                    {% if r.is_correct %}
+                    <span class="badge bg-success"><i class="bi bi-check-lg"></i> 正确</span>
+                    {% else %}
+                    <span class="badge bg-danger"><i class="bi bi-x-lg"></i> 错误</span>
+                    {% endif %}
+                </div>
+                <p class="mb-2">{{ r.question.question_text }}</p>
+
+                {% if not r.is_correct %}
+                <div class="row g-2 mb-2 small">
+                    <div class="col-sm-6">
+                        <span class="text-danger">你的答案：</span>{{ r.user_answer or '(未作答)' }}
+                    </div>
+                    <div class="col-sm-6">
+                        <span class="text-success">正确答案：</span>{{ r.question.correct_answer }}
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if r.question.explanation %}
+                <div class="mt-2 p-2 rounded small bg-light">
+                    <i class="bi bi-lightbulb me-1" style="color: #F39C12;"></i>
+                    <strong>解析：</strong>{{ r.question.explanation }}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

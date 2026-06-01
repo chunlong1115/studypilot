@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% block title %}仪表盘 - 智学伴 StudyPilot{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col">
+        <h2 style="color: #4A90D9;"><i class="bi bi-speedometer2 me-2"></i>学习仪表盘</h2>
+        <p class="text-muted">欢迎回来，{{ current_user.username }}！</p>
+    </div>
+</div>
+
+<!-- 统计卡片 -->
+<div class="row g-4 mb-4">
+    <div class="col-md-3 col-sm-6">
+        <div class="card border-0 shadow-sm text-center p-3 h-100">
+            <div class="card-body">
+                <i class="bi bi-folder2-open fs-1" style="color: #4A90D9;"></i>
+                <div class="stat-number">{{ material_count }}</div>
+                <p class="text-muted mb-0">学习资料</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6">
+        <div class="card border-0 shadow-sm text-center p-3 h-100">
+            <div class="card-body">
+                <i class="bi bi-pencil-square fs-1" style="color: #4A90D9;"></i>
+                <div class="stat-number">{{ question_count }}</div>
+                <p class="text-muted mb-0">练习题目</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6">
+        <div class="card border-0 shadow-sm text-center p-3 h-100">
+            <div class="card-body">
+                <i class="bi bi-journal-x fs-1" style="color: #E74C3C;"></i>
+                <div class="stat-number" {% if pending_errors > 0 %}style="color: #E74C3C;"{% endif %}>{{ pending_errors }}</div>
+                <p class="text-muted mb-0">待复习错题</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6">
+        <div class="card border-0 shadow-sm text-center p-3 h-100">
+            <div class="card-body">
+                <i class="bi bi-clock-history fs-1" style="color: #4A90D9;"></i>
+                <div class="stat-number">{{ today_minutes }}<small class="fs-6 text-muted"> min</small></div>
+                <p class="text-muted mb-0">今日学习</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <!-- 快速入口 -->
+    <div class="col-lg-4">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-header bg-white border-0 pt-3">
+                <h6 class="mb-0"><i class="bi bi-lightning-charge me-1" style="color: #4A90D9;"></i>快速入口</h6>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <a href="{{ url_for('materials.list_materials') }}" class="btn btn-outline-primary btn-sm text-start">
+                        <i class="bi bi-folder2-open me-2"></i>学习资料 ({{ material_count }})
+                    </a>
+                    <a href="{{ url_for('materials.upload_material') }}" class="btn btn-outline-primary btn-sm text-start">
+                        <i class="bi bi-plus-circle me-2"></i>添加新资料
+                    </a>
+                    {% if pending_errors > 0 %}
+                    <a href="{{ url_for('errors.notebook') }}" class="btn btn-outline-danger btn-sm text-start">
+                        <i class="bi bi-journal-x me-2"></i>复习错题 ({{ pending_errors }})
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 待复习错题 -->
+    <div class="col-lg-8">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-header bg-white border-0 pt-3 d-flex justify-content-between align-items-center">
+                <h6 class="mb-0"><i class="bi bi-journal-check me-1" style="color: #4A90D9;"></i>待复习错题</h6>
+                {% if recent_errors %}
+                <a href="{{ url_for('errors.notebook') }}" class="btn btn-sm btn-outline-primary">查看全部</a>
+                {% endif %}
+            </div>
+            <div class="card-body">
+                {% if recent_errors %}
+                <div class="list-group list-group-flush">
+                    {% for error in recent_errors %}
+                    <div class="list-group-item border-0 px-0 d-flex justify-content-between align-items-center">
+                        <div class="text-truncate me-2">
+                            <small>{{ error.question.question_text[:60] }}</small>
+                        </div>
+                        <small class="text-muted text-nowrap">
+                            掌握度: {% for i in range(5) %}{% if i < error.mastery_level %}<i class="bi bi-star-fill" style="color: #F39C12;"></i>{% else %}<i class="bi bi-star" style="color: #ccc;"></i>{% endif %}{% endfor %}
+                        </small>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="text-center py-4 text-muted">
+                    <i class="bi bi-emoji-smile fs-3"></i>
+                    <p class="mt-2 mb-0">暂无待复习错题，继续保持！</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if material_count == 0 %}
+<div class="text-center py-4 mt-4 bg-primary-light rounded-4" style="background-color: #EBF2FA;">
+    <i class="bi bi-rocket-takeoff fs-1" style="color: #4A90D9;"></i>
+    <p class="mt-2 text-muted">上传第一篇学习资料，开启智能学习之旅吧！</p>
+    <a href="{{ url_for('materials.upload_material') }}" class="btn btn-primary" style="background-color: #4A90D9; border-color: #4A90D9;">
+        <i class="bi bi-plus-lg"></i> 添加资料
+    </a>
+</div>
+{% endif %}
+{% endblock %}

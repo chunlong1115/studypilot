@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}注册 - 智学伴 StudyPilot{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-4">
+                <h3 class="text-center mb-4" style="color: #4A90D9;">
+                    <i class="bi bi-person-plus me-2"></i>创建账户
+                </h3>
+
+                <form method="POST">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">用户名</label>
+                        <input type="text" class="form-control" id="username" name="username"
+                               value="{{ username or '' }}" placeholder="2-64 个字符" required autofocus>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email" class="form-label">邮箱</label>
+                        <input type="email" class="form-control" id="email" name="email"
+                               value="{{ email or '' }}" placeholder="name@example.com" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="password" class="form-label">密码</label>
+                        <input type="password" class="form-control" id="password" name="password"
+                               placeholder="至少 6 位" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="confirm_password" class="form-label">确认密码</label>
+                        <input type="password" class="form-control" id="confirm_password" name="confirm_password"
+                               placeholder="再次输入密码" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 mb-3" style="background-color: #4A90D9; border-color: #4A90D9;">
+                        注册
+                    </button>
+                </form>
+
+                <hr>
+                <div class="text-center">
+                    <span class="text-muted small">已有账户？</span>
+                    <a href="{{ url_for('auth.login') }}" class="small">立即登录</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

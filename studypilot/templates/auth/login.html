@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}登录 - 智学伴 StudyPilot{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-5 col-lg-4">
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-4">
+                <h3 class="text-center mb-4" style="color: #4A90D9;">
+                    <i class="bi bi-box-arrow-in-right me-2"></i>登录
+                </h3>
+
+                <form method="POST">
+                    <div class="mb-3">
+                        <label for="email" class="form-label">邮箱</label>
+                        <input type="email" class="form-control" id="email" name="email"
+                               value="{{ email or '' }}" placeholder="请输入邮箱" required autofocus>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="password" class="form-label">密码</label>
+                        <input type="password" class="form-control" id="password" name="password"
+                               placeholder="请输入密码" required>
+                    </div>
+
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="remember" name="remember">
+                        <label class="form-check-label" for="remember">记住我</label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 mb-3" style="background-color: #4A90D9; border-color: #4A90D9;">
+                        登录
+                    </button>
+                </form>
+
+                <div class="text-center">
+                    <a href="{{ url_for('auth.forgot_password') }}" class="text-muted small">忘记密码？</a>
+                </div>
+                <hr>
+                <div class="text-center">
+                    <span class="text-muted small">还没有账户？</span>
+                    <a href="{{ url_for('auth.register') }}" class="small">立即注册</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block title %}智学伴 StudyPilot - AI 智能学习伴侣{% endblock %}
+
+{% block content %}
+<div class="row min-vh-75 align-items-center py-5">
+    <div class="col-lg-6 mb-5 mb-lg-0">
+        <h1 class="display-4 fw-bold text-primary" style="color: #4A90D9 !important;">
+            让学习更高效
+        </h1>
+        <p class="lead text-muted mt-3">
+            智学伴是你的 AI 智能学习伴侣，帮助大学生轻松管理学习资料、
+            AI 自动总结重点、智能出题练习、系统管理错题，让复习事半功倍。
+        </p>
+        <div class="mt-4 d-flex gap-3">
+            <a href="{{ url_for('auth.register') }}" class="btn btn-primary btn-lg px-4" style="background-color: #4A90D9; border-color: #4A90D9;">
+                <i class="bi bi-rocket-takeoff"></i> 免费注册
+            </a>
+            <a href="{{ url_for('auth.login') }}" class="btn btn-outline-primary btn-lg px-4" style="border-color: #4A90D9; color: #4A90D9;">
+                <i class="bi bi-box-arrow-in-right"></i> 立即登录
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-6 text-center">
+        <img src="https://img.alicdn.com/imgextra/i4/O1CN01w3pLQF1sYhJ0KPBn7_!!6000000005779-2-tps-800-600.png"
+             alt="学习插图" class="img-fluid" style="max-width: 400px;"
+             onerror="this.style.display='none'">
+        <div class="mt-4 p-5 bg-white rounded-4 shadow-sm" style="border-left: 4px solid #4A90D9;">
+            <i class="bi bi-robot fs-1" style="color: #4A90D9;"></i>
+            <p class="mt-2 mb-0 text-muted">AI 驱动的智能学习伴侣</p>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4 py-5">
+    <div class="col-md-3">
+        <div class="card h-100 border-0 shadow-sm text-center p-3">
+            <div class="card-body">
+                <i class="bi bi-folder2-open fs-1" style="color: #4A90D9;"></i>
+                <h5 class="card-title mt-3">资料管理</h5>
+                <p class="card-text text-muted small">上传 PDF、笔记、图片、链接，统一管理学习资料</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card h-100 border-0 shadow-sm text-center p-3">
+            <div class="card-body">
+                <i class="bi bi-file-earmark-text fs-1" style="color: #4A90D9;"></i>
+                <h5 class="card-title mt-3">AI 智能总结</h5>
+                <p class="card-text text-muted small">AI 自动提取重点，生成知识要点摘要</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card h-100 border-0 shadow-sm text-center p-3">
+            <div class="card-body">
+                <i class="bi bi-pencil-square fs-1" style="color: #4A90D9;"></i>
+                <h5 class="card-title mt-3">智能出题</h5>
+                <p class="card-text text-muted small">四种题型自动生成，随时检验学习效果</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card h-100 border-0 shadow-sm text-center p-3">
+            <div class="card-body">
+                <i class="bi bi-journal-check fs-1" style="color: #4A90D9;"></i>
+                <h5 class="card-title mt-3">错题管理</h5>
+                <p class="card-text text-muted small">智能错题本，间隔重复复习，彻底攻克薄弱点</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
