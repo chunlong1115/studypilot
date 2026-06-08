@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}500 - 服务器错误{% endblock %}
+{% block content %}
+<div class="text-center py-5">
+    <h1 class="display-1 fw-bold" style="color: #E74C3C;">500</h1>
+    <p class="lead text-muted">服务器出现错误，请稍后重试。</p>
+    <a href="{{ url_for('main.index') }}" class="btn btn-primary mt-3">
+        <i class="bi bi-house"></i> 返回首页
+    </a>
+</div>
+{% endblock %}

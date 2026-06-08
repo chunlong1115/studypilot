@@ -1,0 +1,262 @@
+/* ============================================
+   智学伴 StudyPilot - 主样式表
+   淡蓝色主题 #4A90D9 | 2026 答辩版
+   ============================================ */
+
+:root {
+    --primary: #4A90D9;
+    --primary-dark: #357ABD;
+    --primary-light: #6BA5E7;
+    --primary-bg: #EBF2FA;
+    --bg: #F5F7FA;
+    --text: #2C3E50;
+    --text-muted: #7F8C8D;
+    --card-bg: #FFFFFF;
+    --border: #E8ECF1;
+    --success: #27AE60;
+    --danger: #E74C3C;
+    --warning: #F39C12;
+    --radius: 14px;
+    --shadow-sm: 0 2px 12px rgba(0,0,0,0.06);
+    --shadow-md: 0 4px 20px rgba(0,0,0,0.08);
+    --shadow-lg: 0 8px 40px rgba(74,144,217,0.12);
+}
+
+body {
+    background: linear-gradient(180deg, #F8FAFC 0%, #EFF3F8 100%);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+                 "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+    min-height: 100vh;
+    line-height: 1.7;
+}
+
+/* ====== 导航栏 ====== */
+.navbar {
+    background: linear-gradient(135deg, #4A90D9 0%, #357ABD 100%) !important;
+    box-shadow: 0 2px 16px rgba(74,144,217,0.25);
+}
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+}
+.navbar .nav-link {
+    font-weight: 500;
+    padding: 0.5rem 1rem !important;
+    border-radius: 8px;
+    transition: background 0.2s;
+}
+.navbar .nav-link:hover {
+    background: rgba(255,255,255,0.15);
+}
+
+/* ====== 卡片 ====== */
+.card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+/* ====== 统计卡片 ====== */
+.stat-card {
+    background: linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 100%);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.25s ease;
+}
+.stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+}
+.stat-card .stat-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    display: inline-block;
+    width: 56px;
+    height: 56px;
+    line-height: 56px;
+    border-radius: 14px;
+}
+.stat-number {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--primary);
+}
+.stat-label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+/* ====== 学习计时器 ====== */
+.timer-bar {
+    background: linear-gradient(135deg, #4A90D9 0%, #6BA5E7 100%);
+    border-radius: var(--radius);
+    color: #fff;
+    padding: 0.6rem 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+.timer-bar .timer-label {
+    font-size: 0.85rem;
+    opacity: 0.9;
+    white-space: nowrap;
+}
+.timer-bar .timer-value {
+    font-size: 1.5rem;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 1px;
+}
+.timer-bar .btn-timer {
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    padding: 0.4rem 1rem;
+    border: 2px solid rgba(255,255,255,0.5);
+    color: #fff;
+    background: transparent;
+    white-space: nowrap;
+    transition: all 0.2s;
+}
+.timer-bar .btn-timer:hover {
+    background: rgba(255,255,255,0.2);
+    border-color: #fff;
+}
+.timer-bar .btn-timer.running {
+    background: rgba(231,76,60,0.3);
+    border-color: rgba(255,255,255,0.8);
+    animation: pulse 1.5s infinite;
+}
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+/* ====== 按钮 ====== */
+.btn {
+    border-radius: 10px;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+.btn-primary {
+    background: linear-gradient(135deg, #4A90D9 0%, #357ABD 100%);
+    border: none;
+}
+.btn-primary:hover {
+    background: linear-gradient(135deg, #357ABD 0%, #2C6AA8 100%);
+    transform: translateY(-1px);
+}
+.btn-outline-primary {
+    color: var(--primary);
+    border-color: var(--primary);
+}
+.btn-outline-primary:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: #fff;
+}
+.btn-success {
+    background: linear-gradient(135deg, #27AE60 0%, #1E8449 100%);
+    border: none;
+}
+
+/* ====== 表单 ====== */
+.form-control, .form-select {
+    border-radius: 10px;
+    border: 1.5px solid var(--border);
+    padding: 0.6rem 1rem;
+    transition: all 0.2s;
+}
+.form-control:focus, .form-select:focus {
+    border-color: var(--primary-light);
+    box-shadow: 0 0 0 3px rgba(74,144,217,0.12);
+}
+label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--text);
+    margin-bottom: 0.4rem;
+}
+
+/* ====== 着陆页 Hero ====== */
+.hero-title {
+    font-size: 2.8rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #4A90D9 0%, #2C6AA8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+.hero-subtitle {
+    color: var(--text-muted);
+    font-size: 1.15rem;
+    max-width: 480px;
+}
+.feature-card {
+    text-align: center;
+    padding: 2rem 1rem;
+    border-radius: var(--radius);
+    background: #fff;
+    border: 1px solid var(--border);
+    transition: all 0.3s ease;
+}
+.feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+.feature-card .feature-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+/* ====== 页脚 ====== */
+footer {
+    border-top: 1px solid var(--border);
+    background: #fff !important;
+}
+
+/* ====== 链接 ====== */
+a {
+    color: var(--primary);
+    transition: color 0.2s;
+}
+a:hover {
+    color: var(--primary-dark);
+}
+
+/* ====== Alert ====== */
+.alert {
+    border: none;
+    border-radius: 12px;
+    font-weight: 500;
+}
+
+/* ====== 分页 ====== */
+.pagination .page-link {
+    border-radius: 8px;
+    margin: 0 2px;
+    border: 1px solid var(--border);
+    color: var(--primary);
+}
+.pagination .active .page-link {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: #fff;
+}
+
+/* ====== 工具类 ====== */
+.rounded-xl { border-radius: var(--radius) !important; }
+.bg-primary-light { background-color: var(--primary-bg); }
+.shadow-card { box-shadow: var(--shadow-sm); }
+.text-primary-custom { color: var(--primary) !important; }

@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}添加资料 - 智学伴 StudyPilot{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body p-4">
+                <h4 class="mb-4" style="color: #4A90D9;">
+                    <i class="bi bi-plus-circle me-2"></i>添加学习资料
+                </h4>
+
+                <form method="POST" enctype="multipart/form-data" id="uploadForm">
+                    <ul class="nav nav-pills mb-4" id="typeTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="note-tab" data-bs-toggle="pill" data-bs-target="#note" type="button">
+                                <i class="bi bi-file-earmark-text me-1"></i>文本笔记
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="image-tab" data-bs-toggle="pill" data-bs-target="#image" type="button">
+                                <i class="bi bi-file-image me-1"></i>图片
+                            </button>
+                        </li>
+                    </ul>
+
+                    <div class="mb-3">
+                        <label for="title" class="form-label">资料标题 <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="title" name="title"
+                               placeholder="给学习资料起个名字" required maxlength="256">
+                    </div>
+
+                    <input type="hidden" name="material_type" id="material_type" value="note">
+
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="note" role="tabpanel">
+                            <textarea class="form-control" name="content" rows="12" id="noteContent"
+                                      placeholder="在这里写下你的笔记内容..."></textarea>
+                        </div>
+                        <div class="tab-pane fade" id="image" role="tabpanel">
+                            <div class="upload-zone p-4 text-center border rounded-3 bg-light">
+                                <i class="bi bi-image fs-1" style="color: #4A90D9;"></i>
+                                <p class="mt-2 mb-1">上传拍照笔记或图片</p>
+                                <input type="file" class="form-control" name="file" accept=".png,.jpg,.jpeg,.gif" id="imageInput">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4">
+                        <button type="submit" class="btn btn-primary" style="background-color: #4A90D9; border-color: #4A90D9;">
+                            <i class="bi bi-check-lg"></i> 上传资料
+                        </button>
+                        <a href="{{ url_for('materials.list_materials') }}" class="btn btn-outline-secondary ms-2">取消</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.querySelectorAll('#typeTabs button').forEach(function(btn) {
+    btn.addEventListener('shown.bs.tab', function(e) {
+        var type = e.target.dataset.bsTarget.replace('#', '');
+        document.getElementById('material_type').value = type;
+    });
+});
+</script>
+{% endblock %}

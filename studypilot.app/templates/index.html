@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}智学伴 StudyPilot - AI 智能学习伴侣{% endblock %}
+
+{% block content %}
+<div class="row align-items-center py-5">
+    <div class="col-lg-6 mb-4 mb-lg-0">
+        <h1 class="hero-title mb-3">让学习更高效</h1>
+        <p class="hero-subtitle">
+            基于 DeepSeek 大模型的 AI 智能学习伴侣，帮助大学生轻松管理资料、自动总结重点、智能出题练习、科学管理错题。
+        </p>
+        <div class="mt-4 d-flex gap-3">
+            <a href="{{ url_for('auth.register') }}" class="btn btn-primary btn-lg px-4">
+                <i class="bi bi-rocket-takeoff me-1"></i>免费注册
+            </a>
+            <a href="{{ url_for('auth.login') }}" class="btn btn-outline-primary btn-lg px-4">
+                <i class="bi bi-box-arrow-in-right me-1"></i>立即登录
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-6 text-center">
+        <div class="d-flex flex-wrap justify-content-center gap-2">
+            <span class="badge fs-6 px-3 py-2" style="background:#EBF2FA;color:#4A90D9;">AI 智能摘要</span>
+            <span class="badge fs-6 px-3 py-2" style="background:#EBF2FA;color:#4A90D9;">自动出题</span>
+            <span class="badge fs-6 px-3 py-2" style="background:#EBF2FA;color:#4A90D9;">错题管理</span>
+            <span class="badge fs-6 px-3 py-2" style="background:#EBF2FA;color:#4A90D9;">进度分析</span>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4 py-4">
+    <div class="col-md-3 col-6">
+        <div class="feature-card">
+            <div class="feature-icon"><i class="bi bi-folder2-open" style="color:#4A90D9;"></i></div>
+            <h6>资料管理</h6>
+            <p class="text-muted small mb-0">笔记、图片统一管理</p>
+        </div>
+    </div>
+    <div class="col-md-3 col-6">
+        <div class="feature-card">
+            <div class="feature-icon"><i class="bi bi-robot" style="color:#4A90D9;"></i></div>
+            <h6>AI 摘要</h6>
+            <p class="text-muted small mb-0">DeepSeek 自动分析重点</p>
+        </div>
+    </div>
+    <div class="col-md-3 col-6">
+        <div class="feature-card">
+            <div class="feature-icon"><i class="bi bi-pencil-square" style="color:#4A90D9;"></i></div>
+            <h6>智能出题</h6>
+            <p class="text-muted small mb-0">4 种题型自动生成</p>
+        </div>
+    </div>
+    <div class="col-md-3 col-6">
+        <div class="feature-card">
+            <div class="feature-icon"><i class="bi bi-journal-check" style="color:#4A90D9;"></i></div>
+            <h6>错题复习</h6>
+            <p class="text-muted small mb-0">间隔重复科学记忆</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

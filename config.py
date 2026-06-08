@@ -7,17 +7,17 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 
 class Config:
-    SECRET_KEY = os.getenv('SECRET_KEY', 'dev-secret-key-change-in-production')
+    SECRET_KEY = os.getenv('SECRET_KEY', 'dev-secret-key-change-in-production·')
 
     # MySQL
     SQLALCHEMY_DATABASE_URI = os.getenv(
         'DATABASE_URL',
-        'mysql+pymysql://root:password@localhost:3306/studypilot?charset=utf8mb4'
+        'mysql+pymysql://root:password@localhost:3306/studypilot.app?charset=utf8mb4'
     )
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     # Upload
-    UPLOAD_FOLDER = os.path.join(basedir, 'studypilot', 'static', 'uploads')
+    UPLOAD_FOLDER = os.path.join(basedir, 'studypilot.app', 'static', 'uploads')
     MAX_CONTENT_LENGTH = 16 * 1024 * 1024  # 16 MB
 
     # Email
@@ -26,7 +26,7 @@ class Config:
     MAIL_USE_TLS = True
     MAIL_USERNAME = os.getenv('MAIL_USERNAME', '')
     MAIL_PASSWORD = os.getenv('MAIL_PASSWORD', '')
-    MAIL_DEFAULT_SENDER = os.getenv('MAIL_DEFAULT_SENDER', 'noreply@studypilot.com')
+    MAIL_DEFAULT_SENDER = os.getenv('MAIL_DEFAULT_SENDER', 'noreply@studypilot.app.com')
 
     # DeepSeek
     DEEPSEEK_API_KEY = os.getenv('DEEPSEEK_API_KEY', '')
