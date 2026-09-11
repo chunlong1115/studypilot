@@ -1,6 +1,6 @@
 # 智学伴 StudyPilot — AI 智能学习辅助平台
 
->  | Flask + MySQL + DeepSeek AI | 数据科学与大数据技术专业
+>  | Flask + MySQL + DeepSeek AI | 
 
 ## 项目简介
 
@@ -109,4 +109,4 @@ studypilot/
 
 ## 作者
 椿  
-数据科学与大数据技术 大二 · 2026
+数据科学与大数据技术  · 2026
