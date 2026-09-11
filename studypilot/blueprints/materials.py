@@ -34,7 +34,7 @@ def list_materials():
 
 
 @materials_bp.route('/upload', methods=['GET', 'POST'])
-@login_required
+@login_required#需要登录才能访问
 def upload_material():
     if request.method == 'POST':
         title = request.form.get('title', '').strip()
@@ -65,6 +65,10 @@ def upload_material():
                 flash('仅支持 PNG/JPG/JPEG/GIF 格式。', 'danger')
                 return render_template('materials/upload.html')
             filepath = save_upload(file, 'materials')
+            '''函数内部会：
+            生成 UUID 唯一文件名（避免冲突）
+            保存到 uploads/materials/ 目录
+            返回相对路径（如 materials/abc123.png）'''
             material.file_path = filepath
             material.file_size = os.path.getsize(
                 os.path.join(current_app.config['UPLOAD_FOLDER'], filepath))

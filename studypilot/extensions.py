@@ -3,12 +3,10 @@ from flask_migrate import Migrate
 from flask_login import LoginManager
 from flask_mail import Mail
 
-
-db = SQLAlchemy()
-migrate = Migrate()
-login_manager = LoginManager()
-mail = Mail()
-
+db = SQLAlchemy()  # ORM 数据库操作
+migrate = Migrate()  # 数据库迁移工具
+login_manager = LoginManager()  # 用户会话管理
+mail = Mail()  # 邮件发送
 
 def init_extensions(app):
     """集中初始化所有Flask扩展
